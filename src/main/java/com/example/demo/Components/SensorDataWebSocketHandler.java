@@ -44,6 +44,7 @@ public class SensorDataWebSocketHandler implements WebSocketHandler {
             }
         }, 0, 60000); // 60000ms = 1 minute
     }
+    @SuppressWarnings("null")
     @Override
     public Mono<Void> handle(WebSocketSession session) {
         // Add the session to the set of active sessions
@@ -70,6 +71,7 @@ public class SensorDataWebSocketHandler implements WebSocketHandler {
     private void handleIncomingData(String data) {
         try {
             // Parse incoming sensor data and update the map
+            @SuppressWarnings("unchecked")
             Map<String, Object> incomingData = new ObjectMapper().readValue(data, Map.class);
             sensorData.put((String) incomingData.get("sensorType"), incomingData.get("value"));
         } catch (Exception e) {
@@ -84,7 +86,7 @@ public class SensorDataWebSocketHandler implements WebSocketHandler {
             Flux.fromIterable(sessions)
                 .filter(WebSocketSession::isOpen)
                 .flatMap(session -> session.send(Mono.just(session.textMessage(combinedData)))
-                    .doOnError(_ -> sessions.remove(session)))
+                    .doOnError(tick -> sessions.remove(session)))
                 .subscribe();
         } catch (Exception e) {
             System.err.println("Error broadcasting sensor data: " + e.getMessage());

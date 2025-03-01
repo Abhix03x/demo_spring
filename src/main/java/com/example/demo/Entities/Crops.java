@@ -22,10 +22,6 @@ public class Crops {
 
     private String name;
 
-    private String description;
-
-    private String imageUrl;
-
     private Double minTemperature;
     private Double maxTemperature;
     private Double minHumidity;

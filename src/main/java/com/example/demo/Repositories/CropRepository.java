@@ -8,8 +8,12 @@ import org.springframework.stereotype.Repository;
 import com.example.demo.Entities.Crops;
 
 import java.util.List;
-
 @Repository
 public interface CropRepository extends JpaRepository<Crops, Long> {
-    List<Crops> findByUserId(Long userId);
+
+    // Find crop by name
+    Crops findByName(String name);
+
+    // Fetch all crops with their threshold values
+    List<Crops> findAll();
 }
