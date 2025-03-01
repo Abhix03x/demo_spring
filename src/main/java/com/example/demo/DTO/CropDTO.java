@@ -1,55 +1,20 @@
-package com.example.demo.Entities;
-
-import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+package com.example.demo.DTO;
 
 import java.time.LocalTime;
 
-@Entity
-@Getter
-@Setter
-@Table(name = "crops")
-public class Crops {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class CropDTO {
     private Long id;
-
-    @ManyToOne
-    private Users user;
-
     private String name;
-
+    private String description;
+    private String imageUrl;
     private Double minTemperature;
     private Double maxTemperature;
     private Double minHumidity;
     private Double maxHumidity;
     private Double minSoilMoisture;
     private Double maxSoilMoisture;
-
-    @Column(name = "irrigation_start_time")
     private LocalTime irrigationStartTime;
-
-    @Column(name = "irrigation_end_time")
     private LocalTime irrigationEndTime;
-
-    public Crops() {}
-
-    public Crops(String name, Double minTemperature, Double maxTemperature, Double minHumidity, 
-                 Double maxHumidity, Double minSoilMoisture, Double maxSoilMoisture, 
-                 Users user, LocalTime irrigationStartTime, LocalTime irrigationEndTime) {
-        this.name = name;
-        this.minTemperature = minTemperature;
-        this.maxTemperature = maxTemperature;
-        this.minHumidity = minHumidity;
-        this.maxHumidity = maxHumidity;
-        this.minSoilMoisture = minSoilMoisture;
-        this.maxSoilMoisture = maxSoilMoisture;
-        this.user = user;
-        this.irrigationStartTime = irrigationStartTime;
-        this.irrigationEndTime = irrigationEndTime;
-    }
 
     // Getters and Setters
     public Long getId() {
@@ -66,6 +31,22 @@ public class Crops {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public Double getMinTemperature() {
@@ -114,14 +95,6 @@ public class Crops {
 
     public void setMaxSoilMoisture(Double maxSoilMoisture) {
         this.maxSoilMoisture = maxSoilMoisture;
-    }
-
-    public Users getUser() {
-        return user;
-    }
-
-    public void setUser(Users user) {
-        this.user = user;
     }
 
     public LocalTime getIrrigationStartTime() {
