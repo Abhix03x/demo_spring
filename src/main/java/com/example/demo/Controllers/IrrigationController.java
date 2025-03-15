@@ -39,12 +39,22 @@ public class IrrigationController {
     /**
      * ✅ Manual Control of Irrigation Valve
      */
+    // @PostMapping("/manual-control")
+    // public ResponseEntity<String> manualValveControl(@RequestParam boolean openValve) {
+    //     irrigationService.manualValveControl(openValve);
+    //     return ResponseEntity.ok(openValve ? "Valve opened manually" : "Valve closed manually.");
+    // }
+    //      * ✅ NEW: Endpoint to Send Signal to Microcontroller for Manual Valve Control
+    //  */
     @PostMapping("/manual-control")
-    public ResponseEntity<String> manualValveControl(@RequestParam boolean openValve) {
-        irrigationService.manualValveControl(openValve);
-        return ResponseEntity.ok(openValve ? "Valve opened manually" : "Valve closed manually.");
+    public ResponseEntity<String> sendSignalToMicrocontroller(@RequestParam boolean openValve) {
+        boolean success = irrigationService.sendSignalToMicrocontroller(openValve);
+        if (success) {
+            return ResponseEntity.ok(openValve ? "Microcontroller: Valve opened manually" : "Microcontroller: Valve closed manually. Automatic irrigation resumed.");
+        } else {
+            return ResponseEntity.status(500).body("Microcontroller: Failed to control the valve.");
+        }
     }
-
     /**
      * ✅ Fetch Current Irrigation Status
      */

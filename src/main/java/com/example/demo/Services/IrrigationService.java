@@ -110,8 +110,24 @@ public class IrrigationService {
     }
     
 
-    public void manualValveControl(boolean openValve) {
-        valveOpen = openValve;
+    // public void manualValveControl(boolean openValve) {
+    //     valveOpen = openValve;
+    // }
+      // ✅ New method for sending signals to the microcontroller
+      public boolean sendSignalToMicrocontroller(boolean openValve) {
+        try {
+            if (openValve) {
+                System.out.println("🔵 Sending signal to Microcontroller: OPEN valve");
+                // Replace with actual communication logic (GPIO, MQTT, HTTP request, etc.)
+            } else {
+                System.out.println("🔴 Sending signal to Microcontroller: CLOSE valve");
+                // Replace with actual communication logic
+            }
+            return true; // Success
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false; // Failure
+        }
     }
 
     public String getCurrentStatus() {
